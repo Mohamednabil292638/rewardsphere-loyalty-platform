@@ -1,101 +1,205 @@
-# RewardSphere — Enterprise Loyalty & Rewards Platform
+# RewardSphere — Loyalty & Rewards Microservices Platform
 
-RewardSphere is a Java-based backend project for managing customer loyalty accounts, reward points, and reward redemption workflows. It is being developed with an emphasis on reliable transaction processing, clear service boundaries, and event-driven integration.
+RewardSphere is a backend-focused loyalty and rewards management platform built with Java and Spring Boot. The project explores a modular microservices architecture for managing users, loyalty points, reward vouchers, and service-to-service communication.
 
-> **Project status:** Initial repository setup. Features and technology integrations will be documented as they are implemented and tested.
+The goal is to build a scalable backend system with clean service boundaries, reliable business transactions, and modern backend engineering practices.
 
-## Project Goals
+> **Project Status:** Under active development. The repository currently contains the initial project structure and service scaffolding. Features are being implemented and validated incrementally.
 
-- Manage customer loyalty accounts and point balances.
-- Record point credits and debits with an auditable ledger.
-- Support reward catalogue and redemption workflows.
-- Protect operations against duplicate requests and concurrent redemptions.
-- Explore asynchronous integration using Kafka.
-- Add automated tests, containerized local development, and CI.
+---
 
-## Planned Technology Stack
+## Overview
 
-| Area | Planned technology |
+RewardSphere is designed to provide a centralized platform for managing customer loyalty programs.
+
+The platform aims to support:
+
+- Customer and user management
+- Loyalty point management
+- Reward voucher management
+- Points earning and redemption workflows
+- Service-oriented backend architecture
+- Asynchronous communication between services
+- Transaction consistency and data integrity
+
+---
+
+## Architecture
+
+The project follows a modular microservices-oriented architecture.
+
+```text
+RewardSphere
+│
+├── Common Module
+│   └── Shared components and utilities
+│
+├── User Service
+│   └── User-related operations
+│
+├── Loyalty Service
+│   └── Loyalty points and account operations
+│
+└── Voucher Service
+    └── Reward voucher management
+```
+
+### Services
+
+| Service | Responsibility |
 |---|---|
-| Language | Java 21 |
-| Backend | Spring Boot |
-| API | REST, OpenAPI |
-| Persistence | PostgreSQL, Spring Data JPA |
-| Messaging | Apache Kafka |
-| Cache | Redis |
-| Security | Spring Security, JWT |
-| Migrations | Flyway |
-| Testing | JUnit 5, Mockito, Testcontainers |
-| Containers | Docker, Docker Compose |
-| CI | GitHub Actions |
+| Common | Shared components, utilities, and common application structures |
+| User Service | User-related management and operations |
+| Loyalty Service | Loyalty accounts, points management, and loyalty operations |
+| Voucher Service | Reward voucher management and voucher-related operations |
 
-*The table describes the intended stack, not a claim that every component is already implemented.*
+Service responsibilities and integrations will evolve as implementation progresses.
 
-## Planned Architecture
+---
 
-The implementation will be divided into well-defined services as the domain grows:
+## Technology Stack
 
-- **Identity Service** — customer identity and authentication.
-- **Loyalty Service** — loyalty accounts, point earning, balance, and ledger.
-- **Rewards Service** — reward catalogue and eligibility.
-- **Redemption Service** — redemption orchestration and state management.
-- **Notification Service** — asynchronous customer notifications.
+| Technology | Purpose |
+|---|---|
+| Java | Backend programming language |
+| Spring Boot | Application development framework |
+| Spring | Backend infrastructure and dependency management |
+| Maven / Gradle | Build and project management |
+| REST APIs | Service communication |
+| PostgreSQL | Relational database |
+| Docker | Containerization |
+| Docker Compose | Local infrastructure orchestration |
+| Apache Kafka | Event-driven communication exploration |
+| Git | Version control |
+| GitHub | Source code management |
 
-Service boundaries will be validated against actual business and data ownership needs during implementation.
+> Technologies and integrations are being introduced incrementally. The presence of configuration or infrastructure files does not necessarily mean every component is fully integrated or production-ready.
 
-## Core Engineering Concerns
+---
 
-1. **Ledger integrity:** preserve an auditable record of every points movement.
-2. **Idempotency:** prevent duplicate processing when clients retry requests.
-3. **Concurrency:** ensure simultaneous redemption requests cannot overspend a balance.
-4. **Reliable events:** use an outbox-based approach where database changes and event publication must remain consistent.
-5. **Resilience:** define retry, failure, and dead-letter handling for asynchronous workflows.
-6. **Verification:** cover business rules with unit and integration tests.
+## Core Backend Engineering Goals
 
-## Getting Started
+### 1. Modular Service Architecture
 
-The application setup is currently in progress. Run instructions, environment variables, database configuration, and API examples will be added after the first runnable service is committed.
+Organize the application into independently understandable modules with clear responsibilities and boundaries.
 
-## Repository Structure (Planned)
+### 2. Loyalty Points Management
+
+Design reliable workflows for:
+
+- Earning points
+- Deducting points
+- Tracking balances
+- Maintaining transaction history
+- Validating point operations
+
+### 3. Voucher Management
+
+Build a reward voucher system supporting voucher management and future redemption workflows.
+
+### 4. Data Integrity
+
+Maintain consistent data across operations involving loyalty balances, transactions, and reward redemption.
+
+### 5. Event-Driven Architecture
+
+Explore asynchronous communication between services using Apache Kafka.
+
+### 6. Scalable Backend Design
+
+Build a foundation that can evolve toward independently deployable services and scalable application infrastructure.
+
+---
+
+## Repository Structure
 
 ```text
 rewardsphere-loyalty-platform/
-├── docs/
-│   ├── architecture.md
-│   ├── database-design.md
-│   └── api-specification.md
-├── services/
-│   ├── identity-service/
+│
+├── loyalty-platform-spring-main/
+│   │
+│   ├── common/
+│   │
 │   ├── loyalty-service/
-│   ├── rewards-service/
-│   ├── redemption-service/
-│   └── notification-service/
-├── infrastructure/
-├── .github/
-│   └── workflows/
-└── README.md
+│   │
+│   ├── user-service/
+│   │
+│   ├── voucher-service/
+│   │
+│   ├── build.gradle
+│   ├── settings.gradle
+│   ├── pom.xml
+│   │
+│   ├── docker-compose.yml
+│   │
+│   └── ...
+│
+├── README.md
+└── ...
 ```
+
+---
 
 ## Development Roadmap
 
-- [ ] Establish Java 21 and Spring Boot project foundation.
-- [ ] Configure PostgreSQL and database migrations.
-- [ ] Implement the loyalty account and points ledger.
-- [ ] Add earn and redeem APIs with validation and error handling.
-- [ ] Add idempotency and concurrency protection.
-- [ ] Add Kafka event publishing and consumption.
-- [ ] Implement reliable event delivery and failure handling.
-- [ ] Add integration tests and Docker Compose.
-- [ ] Add CI checks and operational documentation.
+- [x] Initialize project repository
+- [x] Establish initial backend project structure
+- [x] Create service modules
+- [x] Establish shared common module
+- [ ] Configure and validate database integration
+- [ ] Implement user service functionality
+- [ ] Implement loyalty account management
+- [ ] Implement points earning workflows
+- [ ] Implement points redemption workflows
+- [ ] Implement voucher management APIs
+- [ ] Add transaction history and ledger
+- [ ] Integrate asynchronous service communication
+- [ ] Implement validation and exception handling
+- [ ] Add unit and integration tests
+- [ ] Containerize services
+- [ ] Configure CI/CD pipelines
+- [ ] Add API documentation
+- [ ] Prepare deployment configuration
+
+---
 
 ## Engineering Principles
 
-- Keep business rules in the domain/application layer, not in controllers.
-- Validate inputs and return consistent API errors.
-- Keep secrets and environment-specific configuration out of Git.
-- Document only behavior that exists and can be demonstrated.
-- Prefer tested, incremental delivery over a large unverified scaffold.
+- Separation of concerns
+- Modular and maintainable code
+- Clear service responsibilities
+- REST API design
+- Data consistency and transaction integrity
+- Secure configuration management
+- Test-driven and incremental development
+- Scalable architecture
+- Meaningful documentation
+
+---
+
+## Getting Started
+
+The development environment and execution instructions are currently being finalized.
+
+Setup documentation will include:
+
+- Prerequisites
+- Java installation
+- Build instructions
+- Database configuration
+- Environment variables
+- Service startup instructions
+- API endpoints
+- Docker setup
+
+---
+
+## Project Goal
+
+RewardSphere is being developed as a practical backend engineering project to explore and implement real-world concepts including microservices architecture, Java backend development, REST APIs, database integration, event-driven communication, transaction management, testing, and containerization.
+
+---
 
 ## License
 
-A license has not yet been selected. Until one is added, standard copyright restrictions apply.
+No license has been selected yet. All rights reserved unless a license is added to this repository.
